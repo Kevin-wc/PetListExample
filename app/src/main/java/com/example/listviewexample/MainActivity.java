@@ -3,15 +3,33 @@ package com.example.listviewexample;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+
+import model.Pet;
 
 public class MainActivity extends AppCompatActivity {
+    ListView petListWidget;
+    ArrayList<Pet> pets;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        int selection = 1;
+        pets = new ArrayList<>();
+        pets.add(new Pet("Kennny","Husky",15));
+        pets.add(new Pet("Navi","Bulldog",20));
+        pets.add(new Pet("Peter","Chihuahua",3));
+        pets.add(new Pet("Solomon","Labrador",15));
+        pets.add(new Pet("Moses","Frenchie",13));
+
+
+        petListWidget = findViewById(R.id.listViewWidget);
+        int selection = 2;
         populateListView(selection);
     }
 
@@ -32,14 +50,17 @@ public class MainActivity extends AppCompatActivity {
      * the content of a strings array resource
      */
     private void useStringResource() {
-
+        String [] contents = getResources().getStringArray(R.array.breeds);
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,contents);
+        petListWidget.setAdapter(adapter);
     }
 
     /**
      * This method populates the list view using a string resource containing the list of a data array
      */
     private void usingDataArray() {
-
+    ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,pets);
+    petListWidget.setAdapter(adapter);
 
     }
 }
